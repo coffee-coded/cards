@@ -14,7 +14,7 @@
 
       <br>
       <img id="image" src="">
-      <button type="button" id="setImageButton">Set Image</button>
+      <button type="button" id="setImageButton" hidden @click="setImage">Set Image</button>
     </div>
   </div>
 </template>
@@ -30,6 +30,9 @@
     },
     methods:{
       uploadFile: function (event) {
+
+        document.getElementById('setImageButton').hidden = true;
+
         this.file =event.target.files[0];
         const upload = Firebase.storage().ref('user_uploads/'+this.file.name).put(this.file);
         const reader = new FileReader();
@@ -40,10 +43,21 @@
           document.getElementById('image').src= e.target.result
         };
         // progress bar
-        upload.on('state_changed',function (snapshot) {
-          document.getElementById('progressBar').style.width = (snapshot.bytesTransferred / snapshot.totalBytes) * 100 + '%';
+          upload.on('state_changed',function (snapshot) {
+          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          document.getElementById('progressBar').style.width =  progress + '%';
+
+          // unhide the set image button
+          if(progress ===  100){
+            document.getElementById('setImageButton').hidden = false;
+          }
+
         })
 
+
+      },
+
+      setImage: function() {
         this.$emit('displayImageChanged',this.file.name)
       }
     },

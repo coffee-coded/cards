@@ -1,5 +1,39 @@
 <template>
-    <div>
+    <div @mouseover="showOptions=true"
+          @mouseleave="showOptions=false">
+
+        <form class="small" v-show="showOptions">
+          
+          <label for="selectBox">Font Size:</label>
+          <select class="custom-select" id="selectBox" v-model="setFontSize">
+            <option value="42">42 px</option>
+            <option value="48">48 px</option>
+            <option value="56">56 px</option>
+            <option value="64">64 px</option>
+          </select>
+
+          <div class="form-check form-check-inline">
+              <label for="form-check-label">
+              <input type="radio" class="form-check-input" value="left" v-model="setTextAlign"> Left
+              </label>
+          </div>
+
+          <div class="form-check form-check-inline">
+              <label for="form-check-label">
+              <input type="radio" class="form-check-input" value="center" v-model="setTextAlign"> Center
+              </label>
+          </div>
+
+          <div class="form-check form-check-inline">
+              <label for="form-check-label">
+              <input type="radio" class="form-check-input" value="right" v-model="setTextAlign"> Right
+              </label>
+          </div>
+
+
+
+        </form>
+
         <p :style="styleObject">
           {{ displayText }}</p>
     </div>
@@ -15,10 +49,17 @@ export default {
         default:200
       }
     },
-
+    data: function(){
+      return{
+        showOptions:false,
+        setFontSize: '42',
+        setTextAlign: 'left'
+      }
+    },
     computed:{
           styleObject:function () {
             return{
+              fontSize: this.setFontSize + 'px',
               height:this.containerHeight +'px'
             }
           }

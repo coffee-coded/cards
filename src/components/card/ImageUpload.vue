@@ -8,7 +8,7 @@
       </div>
 
       <div class="progress" style="height: 10px;width: 250px">
-        <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar"
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
              id="progressBar" aria-valuenow="15" aria-valuemin="10" aria-valuemax="100"></div>
       </div>
 
